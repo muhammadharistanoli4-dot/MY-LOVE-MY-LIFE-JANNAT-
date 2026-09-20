@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our 3 Months Journey ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .container {
+            z-index: 2;
+            max-width: 800px;
+            width: 90%;
+            margin: 50px auto;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .reveal-btn {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            border: none;
+            padding: 15px 40px;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 65, 108, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .reveal-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 65, 108, 0.8);
+        }
+        #secret-box {
+            display: none;
+            margin-top: 30px;
+            animation: zoomIn 0.8s ease forwards;
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="heartCanvas"></canvas>
+
+    <div class="container">
+        <h1>3 Months of Magic ✨</h1>
+        
+        <div class="glass-card">
+            <p style="font-size: 1.2rem; line-height: 1.6;">
+                Every second spent with you feels like a beautiful dream. 
+                3 months down, forever to go!
+            </p>
+        </div>
+
+        <div class="glass-card">
+            <h3>Unlock Your Final Surprise</h3>
+            <p style="margin-bottom: 20px; color: #ccc;">Tap the glowing button below</p>
+            <button class="reveal-btn" onclick="openSurprise()">Touch Here ❤️</button>
+
+            <div id="secret-box">
+                <h2 style="color: #ff7eb3; margin-top: 20px;">🎉 Happy Anniversary My Love! 🎉</h2>
+                <p style="margin-top: 10px;">
+                    Yahan aap apna heartfelt letter, private video/audio link, ya dinner reservation details add kar sakte hain!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Floating Heart Particles Animation
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 100;
+                this.size = Math.random() * 15 + 5;
+                this.speedY = Math.random() * 1.5 + 0.5;
+                this.opacity = Math.random() * 0.5 + 0.3;
+            }
+            update() {
+                this.y -= this.speedY;
+                if (this.y < -20) {
+                    this.y = canvas.height + 20;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 117, 140, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        function openSurprise() {
+            document.getElementById('secret-box').style.display = 'block';
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
